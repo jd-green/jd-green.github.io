@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominion Equity Holdings</title>
+    <!-- Google Fonts - Sora (Regular, Medium, Bold) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            line-height: 1.6;
+            color: #170D33; /* Cool Black */
+            background-color: #ECF2F5; /* Cool Gray */
+        }
+
+        /* Color Variables - from Brand Guidelines */
+        :root {
+            --royal-purple: #42296B;
+            --light-purple: #B0A3CC;
+            --bright-teal: #75C9CC;
+            --dark-teal: #004A59;
+            --cool-gray: #ECF2F5;
+            --cool-black: #170D33;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 500; /* Sora Medium */
+            margin-bottom: 1rem;
+        }
+
+        h4, h5, h6 {
+            font-weight: 700; /* Sora Bold */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-weight: 400; /* Sora Regular */
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--royal-purple);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--dark-teal);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header - Modern Responsive Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            height: 80px;
+        }
+
+        .logo {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            font-weight: 500;
+            color: var(--cool-black);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--royal-purple);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--royal-purple);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--cool-black);
+            position: absolute;
+            left: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 12px;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 19px;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 26px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 19px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 19px;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: white;
+            z-index: 1000;
+            padding: 5rem 2rem 2rem;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-menu a {
+            font-weight: 500;
+            color: var(--cool-black);
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--cool-gray);
+        }
+
+        .mobile-nav-menu a:hover {
+            color: var(--royal-purple);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--royal-purple), var(--dark-teal));
+            color: white;
+            padding: 10rem 0 7rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--bright-teal);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 2rem auto 2.5rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--royal-purple);
+            border: 2px solid white;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            border-radius: 10px;
+            max-width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content {
+            flex: 2;
+        }
+
+        .about-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .about-content ul ul {
+            margin-bottom: 0;
+        }
+
+        /* Vision Section */
+        .vision {
+            padding: 5rem 0;
+            background-color: var(--cool-gray);
+        }
+
+        .vision-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vision-container p {
+            font-size: 1.1rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            background-color: var(--cool-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-item img {
+            max-width: 150px;
+            max-height: 100px;
+            width: auto;
+            height: auto;
+            margin-bottom: 1.5rem;
+            object-fit: contain;
+        }
+
+        .portfolio-item h3 {
+            margin-bottom: 0;
+        }
+
+        /* Modal/Popover */
+        .modal-background {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--cool-black);
+        }
+
+        .modal-body {
+            margin-top: 1rem;
+        }
+
+        .modal-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-footer a {
+            display: inline-block;
+            background-color: var(--royal-purple);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .modal-footer a:hover {
+            background-color: var(--dark-teal);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--cool-black);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--bright-teal);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 900px) {
+            .about-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-image {
+                margin-bottom: 2rem;
+            }
+
+            .about-content {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .mobile-nav,
+            .mobile-menu-overlay {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo-link">
+                <img src="images/Dominion Equity logo_full color_dark.png" alt="Dominion Equity Holdings Logo" class="logo">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <ul class="mobile-nav-menu">
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="mobile-menu-overlay"></div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>A different kind of equity.</h1>
+            <p>Building and acquiring businesses focused on exercising meaningful, positive influence while creating sustainable enterprises that honor the principle of dominion.</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn btn-primary">Our Portfolio</a>
+                <a href="#vision" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section id="vision" class="vision">
+        <div class="container vision-container">
+            <h2>Our Vision</h2>
+            <p>Dominion Equity Holdings is a holding company that builds and/or acquires businesses focused on expressing the theological principle of dominion – the divine mandate for responsible stewardship and positive transformation of society. Led by James Green alongside a diverse team of experienced operators, the company partners with business owners who share their values-driven approach, seeking to create lasting impact across various industries while maintaining high standards of operational excellence.</p>
+            <p>Through its unique approach anchored in faith-informed principles, Dominion Equity sets itself apart from traditional holding companies and private equity firms by focusing on long-term value creation that extends beyond financial returns. The company's portfolio includes businesses like Better Worship, Psalm One, and Door Renew, each contributing to its mission of exercising meaningful, positive influence in their respective sectors while building sustainable, profitable enterprises that honor the principle of dominion.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2>Our Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-company="better-worship">
+                    <img src="images/better-worship_logo_white_rgb_2000w.png" alt="Better Worship Logo" style="filter: brightness(0.1);">
+                    <h3>Better Worship</h3>
+                </div>
+                <div class="portfolio-item" data-company="psalm-one">
+                    <img src="images/mosaic_icon@3x.png" alt="Psalm One Logo">
+                    <h3>Psalm One</h3>
+                </div>
+                <div class="portfolio-item" data-company="door-renew">
+                    <img src="images/Door Renew Logo.png" alt="Door Renew Logo">
+                    <h3>Door Renew</h3>
+                </div>
+                <div class="portfolio-item" data-company="codeguide">
+                    <img src="images/bw-icon@3x.png" alt="CodeGuide Logo">
+                    <h3>CodeGuide</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container about-container">
+            <div class="about-image">
+                <img src="images/11.png" alt="James Green, Founder" id="founder-image">
+            </div>
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>I was originally in IT (data center virtualization, cloud, etc). I merged that career into building a marketing company serving IT vendors. In 2022, after 10 years of building it, my partners and I successfully sold our <a href="https://www.actualtechmedia.com/about/" target="_blank">tech marketing agency</a>. I completed a one-year earn out and then resigned from the new parent company.</p>
+                <p>I now operate a holding company with investments in:</p>
+                <ul>
+                    <li>Software
+                        <ul>
+                            <li>For churches</li>
+                            <li>For software developers</li>
+                        </ul>
+                    </li>
+                    <li>Home Services
+                        <ul>
+                            <li>Door refinishing services</li>
+                        </ul>
+                    </li>
+                    <li>Commercial real estate
+                        <ul>
+                            <li>Light industrial</li>
+                            <li>Short Term Rentals</li>
+                        </ul>
+                    </li>
+                    <li>Online education/info products
+                        <ul>
+                            <li>Biblical literacy</li>
+                            <li>Artificial Intelligence [Pending]</li>
+                        </ul>
+                    </li>
+                    <li>Consulting
+                        <ul>
+                            <li>AI Consulting - Strategy and Implementation Services [pending]</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container footer-container">
+            <h2>Contact Us</h2>
+            <p>Interested in partnering with Dominion Equity Holdings? We'd love to hear from you.</p>
+            <div class="social-links">
+                <!-- Placeholder social links -->
+                <a href="#" target="_blank">LinkedIn</a>
+                <a href="#" target="_blank">Twitter</a>
+                <a href="#" target="_blank">Email</a>
+            </div>
+            <p>&copy; 2025 Dominion Equity Holdings. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal/Popover for Portfolio Items -->
+    <div class="modal-background" id="company-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h2 id="modal-title"></h2>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer">
+                <a href="#" target="_blank" id="modal-link">Visit Website</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Portfolio company data
+        const companies = {
+            'better-worship': {
+                name: 'Better Worship',
+                description: 'Better Worship targets the Protestant Christian church market with three identified revenue streams. At its core, the company addresses a critical need in churches: helping worship leaders create biblically-grounded, theologically-sound worship experiences without spending hours on research and planning. The platform includes the Setlist Builder™ SaaS product, training content, and a job network for worship leaders.',
+                link: '#',
+                partners: 'Jake Ferrell, Veteran Worship Leader (50%)'
+            },
+            'psalm-one': {
+                name: 'Psalm One',
+                description: 'Psalm One is a kingdom education company that provides premium biblical education through information products. The company addresses a critical market gap: serving educated Christians who are seeking intellectual depth in their Bible study but feel disconnected from traditional church teaching. Offerings include digital products, 1:1 mentoring, and an online community for intellectually curious Christians.',
+                link: '#',
+                partners: 'None (Operated directly by James Green)'
+            },
+            'door-renew': {
+                name: 'Door Renew',
+                description: 'Door Renew operates in the home services sector, specializing in the refinishing of doors and related surfaces. The company serves both residential and commercial clients, providing a cost-effective alternative to full door replacement while enhancing property value and curb appeal. Services include residential door restoration, commercial/property management, and B2B partnerships.',
+                link: '#',
+                partners: 'Jeremy Hamann, Master Woodworking Artisan (10%)'
+            },
+            'codeguide': {
+                name: 'CodeGuide',
+                description: 'CodeGuide helps developers who use AI coding tools like Claude AI and Bolt, addressing a key pain point: the need for detailed project documentation to ensure AI accuracy and efficiency. The platform automates the creation of essential documents—Product Requirements Documents (PRDs), tech stack overviews, and style guidelines—saving developers hours of manual work while enhancing project outcomes.',
+                link: '#',
+                partners: 'CJ Ahmad, Builder (90%)'
+            }
+        };
+
+        // Mobile menu functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            mobileMenuOverlay.style.display = mobileNav.classList.contains('active') ? 'block' : 'none';
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            mobileMenuOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                mobileMenuOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('company-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const modalLink = document.getElementById('modal-link');
+        const modalClose = document.querySelector('.modal-close');
+
+        // Open modal when clicking portfolio items
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const companyKey = item.getAttribute('data-company');
+                const company = companies[companyKey];
+                
+                modalTitle.textContent = company.name;
+                modalBody.innerHTML = `
+                    <p><strong>Partners:</strong> ${company.partners}</p>
+                    <p>${company.description}</p>
+                `;
+                modalLink.href = company.link;
+                
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
