@@ -342,9 +342,7 @@
         }
 
         .about-image img {
-            border-radius: 10px;
             max-width: 100%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .about-content {
@@ -382,46 +380,91 @@
             background-color: white;
         }
 
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+        .portfolio-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: var(--cool-black);
+            font-size: 1.1rem;
         }
 
-        .portfolio-item {
-            background-color: var(--cool-gray);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            text-align: center;
-            padding: 2rem;
+        /* Brands Grid Styles */
+        .brands-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .brands-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .brands-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 3rem;
+            }
+        }
+
+        .brand-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 250px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        .portfolio-item:hover {
+        .brand-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, 
+                rgba(117, 201, 204, 0.1), 
+                rgba(66, 41, 107, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .brand-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
-        .portfolio-item img {
-            max-width: 150px;
-            max-height: 100px;
-            width: auto;
-            height: auto;
-            margin-bottom: 1.5rem;
+        .brand-item:hover::before {
+            opacity: 1;
+        }
+
+        .brand-logo {
+            width: 100%;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo img {
+            max-width: 80%;
+            max-height: 80%;
             object-fit: contain;
+            transition: transform 0.3s ease;
         }
 
-        .portfolio-item h3 {
-            margin-bottom: 0;
+        .brand-item:hover .brand-logo img {
+            transform: scale(1.05);
         }
 
         /* Modal/Popover */
@@ -432,55 +475,154 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            max-width: 600px;
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 700px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: modal-appear 0.3s ease-out;
+        }
+
+        @keyframes modal-appear {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 1.5rem;
+            right: 1.5rem;
             background: none;
             border: none;
-            font-size: 1.5rem;
             cursor: pointer;
             color: var(--cool-black);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+            font-size: 1.5rem;
+        }
+
+        .modal-close:hover {
+            background-color: var(--cool-gray);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-logo {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--cool-gray);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .modal-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .modal-content h2 {
+            font-size: 2rem;
+            color: var(--royal-purple);
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            flex-grow: 1;
+        }
+
+        .modal-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--bright-teal);
+            border-radius: 2px;
         }
 
         .modal-body {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .modal-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-body strong {
+            color: var(--cool-black);
+            font-weight: 600;
         }
 
         .modal-footer {
-            margin-top: 1.5rem;
-            text-align: center;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-start;
         }
 
         .modal-footer a {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             background-color: var(--royal-purple);
             color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 5px;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
             font-weight: 500;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(66, 41, 107, 0.15);
+            position: relative;
+            z-index: 1010; /* Higher than modal backdrop */
+            pointer-events: auto;
         }
 
         .modal-footer a:hover {
             background-color: var(--dark-teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 74, 89, 0.2);
+        }
+
+        .modal-footer a::after {
+            content: '→';
+            transition: transform 0.3s;
+        }
+
+        .modal-footer a:hover::after {
+            transform: translateX(4px);
         }
 
         /* Footer */
@@ -522,6 +664,9 @@
 
             .about-image {
                 margin-bottom: 2rem;
+                max-width: 60%;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .about-content {
@@ -530,6 +675,10 @@
         }
 
         @media (max-width: 768px) {
+            .about-image {
+                max-width: 50%;
+            }
+            
             .nav-menu {
                 display: none;
             }
@@ -558,6 +707,76 @@
                 gap: 0.8rem;
             }
         }
+
+        @media (max-width: 1023px) {
+            .feature-item:nth-child(odd) {
+                border-left: 1px solid #e5e7eb;
+            }
+            
+            .feature-item:nth-child(even) {
+                border-right: 1px solid #e5e7eb;
+            }
+            
+            /* Handle last row properly when there's an odd number of items */
+            .feature-item:nth-last-child(1):nth-child(odd) {
+                border-right: 1px solid #e5e7eb;
+            }
+            
+            /* All items have bottom border except the last row */
+            .feature-item {
+                border-bottom: 1px solid #e5e7eb;
+            }
+            
+            /* Last 1 or 2 items (based on odd/even count) don't have bottom border */
+            .feature-item:nth-last-child(1),
+            .feature-item:nth-last-child(2):nth-child(odd) {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .feature-item {
+                border-left: 1px solid #e5e7eb !important;
+                border-right: 1px solid #e5e7eb !important;
+            }
+            
+            .feature-item:last-child {
+                border-bottom: none !important;
+            }
+        }
+
+        /* Additional button styling for modal */
+        .modal-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--royal-purple);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(66, 41, 107, 0.15);
+            position: relative;
+            z-index: 1010;
+        }
+
+        .modal-button:hover {
+            background-color: var(--dark-teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 74, 89, 0.2);
+        }
+
+        .modal-button::after {
+            content: '→';
+            transition: transform 0.3s;
+        }
+
+        .modal-button:hover::after {
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body>
@@ -570,7 +789,6 @@
             <ul class="nav-menu">
                 <li><a href="#vision">Vision</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <button class="mobile-menu-toggle">
@@ -584,7 +802,6 @@
             <ul class="mobile-nav-menu">
                 <li><a href="#vision">Vision</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -595,10 +812,8 @@
     <section class="hero">
         <div class="container hero-content">
             <h1>A different kind of equity.</h1>
-            <p>Building and acquiring businesses focused on exercising meaningful, positive influence while creating sustainable enterprises that honor the principle of dominion.</p>
             <div class="hero-buttons">
                 <a href="#portfolio" class="btn btn-primary">Our Portfolio</a>
-                <a href="#vision" class="btn btn-secondary">Learn More</a>
             </div>
         </div>
     </section>
@@ -606,93 +821,55 @@
     <!-- Vision Section -->
     <section id="vision" class="vision">
         <div class="container vision-container">
-            <h2>Our Vision</h2>
-            <p>Dominion Equity Holdings is a holding company that builds and/or acquires businesses focused on expressing the theological principle of dominion – the divine mandate for responsible stewardship and positive transformation of society. Led by James Green alongside a diverse team of experienced operators, the company partners with business owners who share their values-driven approach, seeking to create lasting impact across various industries while maintaining high standards of operational excellence.</p>
-            <p>Through its unique approach anchored in faith-informed principles, Dominion Equity sets itself apart from traditional holding companies and private equity firms by focusing on long-term value creation that extends beyond financial returns. The company's portfolio includes businesses like Better Worship, Psalm One, and Door Renew, each contributing to its mission of exercising meaningful, positive influence in their respective sectors while building sustainable, profitable enterprises that honor the principle of dominion.</p>
+            <h2>Vision</h2>
+            <p>Dominion Equity Holdings is a holding company that builds and/or acquires businesses focused on expressing the theological principle of dominion – the divine mandate for responsible stewardship and positive transformation of society. 
+            <p>Led by James Green alongside a diverse team of experienced operators, the company partners with business owners who share their values-driven approach, seeking to create lasting impact across various industries while maintaining high standards of operational excellence.</p>
+            <p>Through its unique approach anchored in faith-informed principles, Dominion Equity sets itself apart from traditional holding companies and private equity firms by focusing on long-term value creation that extends beyond financial returns.</p>
         </div>
     </section>
 
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2>Our Portfolio</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item" data-company="better-worship">
-                    <img src="images/better-worship_logo_white_rgb_2000w.png" alt="Better Worship Logo" style="filter: brightness(0.1);">
-                    <h3>Better Worship</h3>
+            <h2 style="text-align: center;">Portfolio</h2>        
+            <div class="brands-grid">
+                <div class="brand-item" data-company="better-worship">
+                    <div class="brand-logo">
+                        <img src="images/better-worship_logo_white_rgb_2000w.png" alt="Better Worship Logo" style="filter: brightness(0.1);">
+                    </div>
                 </div>
-                <div class="portfolio-item" data-company="psalm-one">
-                    <img src="images/mosaic_icon@3x.png" alt="Psalm One Logo">
-                    <h3>Psalm One</h3>
+                
+                <div class="brand-item" data-company="psalm-one">
+                    <div class="brand-logo">
+                        <img src="images/Psalm One Logo_primary_full color dark.png" alt="Psalm One Logo">
+                    </div>
                 </div>
-                <div class="portfolio-item" data-company="door-renew">
-                    <img src="images/Door Renew Logo.png" alt="Door Renew Logo">
-                    <h3>Door Renew</h3>
+                
+                <div class="brand-item" data-company="door-renew">
+                    <div class="brand-logo">
+                        <img src="images/Door Renew Logo.png" alt="Door Renew Logo">
+                    </div>
                 </div>
-                <div class="portfolio-item" data-company="codeguide">
-                    <img src="images/bw-icon@3x.png" alt="CodeGuide Logo">
-                    <h3>CodeGuide</h3>
+                
+                <div class="brand-item" data-company="codeguide">
+                    <div class="brand-logo">
+                        <img src="images/codeguide.png" alt="CodeGuide Logo">
+                    </div>
+                </div>
+                
+                <div class="brand-item" data-company="mosaic-property">
+                    <div class="brand-logo">
+                        <img src="images/Mosaic Logo_1 full color dark.png" alt="Mosaic Property Group Logo">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container about-container">
-            <div class="about-image">
-                <img src="images/11.png" alt="James Green, Founder" id="founder-image">
-            </div>
-            <div class="about-content">
-                <h2>About Me</h2>
-                <p>I was originally in IT (data center virtualization, cloud, etc). I merged that career into building a marketing company serving IT vendors. In 2022, after 10 years of building it, my partners and I successfully sold our <a href="https://www.actualtechmedia.com/about/" target="_blank">tech marketing agency</a>. I completed a one-year earn out and then resigned from the new parent company.</p>
-                <p>I now operate a holding company with investments in:</p>
-                <ul>
-                    <li>Software
-                        <ul>
-                            <li>For churches</li>
-                            <li>For software developers</li>
-                        </ul>
-                    </li>
-                    <li>Home Services
-                        <ul>
-                            <li>Door refinishing services</li>
-                        </ul>
-                    </li>
-                    <li>Commercial real estate
-                        <ul>
-                            <li>Light industrial</li>
-                            <li>Short Term Rentals</li>
-                        </ul>
-                    </li>
-                    <li>Online education/info products
-                        <ul>
-                            <li>Biblical literacy</li>
-                            <li>Artificial Intelligence [Pending]</li>
-                        </ul>
-                    </li>
-                    <li>Consulting
-                        <ul>
-                            <li>AI Consulting - Strategy and Implementation Services [pending]</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer id="contact">
         <div class="container footer-container">
-            <h2>Contact Us</h2>
-            <p>Interested in partnering with Dominion Equity Holdings? We'd love to hear from you.</p>
-            <div class="social-links">
-                <!-- Placeholder social links -->
-                <a href="#" target="_blank">LinkedIn</a>
-                <a href="#" target="_blank">Twitter</a>
-                <a href="#" target="_blank">Email</a>
-            </div>
-            <p>&copy; 2025 Dominion Equity Holdings. All rights reserved.</p>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Dominion Equity Holdings. All rights reserved.</p>
         </div>
     </footer>
 
@@ -700,10 +877,13 @@
     <div class="modal-background" id="company-modal">
         <div class="modal-content">
             <button class="modal-close">&times;</button>
-            <h2 id="modal-title"></h2>
+            <div class="modal-header">
+                <div id="modal-logo" class="modal-logo"></div>
+                <h2 id="modal-title"></h2>
+            </div>
             <div class="modal-body" id="modal-body"></div>
             <div class="modal-footer">
-                <a href="#" target="_blank" id="modal-link">Visit Website</a>
+                <button id="modal-link-button" class="modal-button">Visit Website</button>
             </div>
         </div>
     </div>
@@ -713,27 +893,41 @@
         const companies = {
             'better-worship': {
                 name: 'Better Worship',
-                description: 'Better Worship targets the Protestant Christian church market with three identified revenue streams. At its core, the company addresses a critical need in churches: helping worship leaders create biblically-grounded, theologically-sound worship experiences without spending hours on research and planning. The platform includes the Setlist Builder™ SaaS product, training content, and a job network for worship leaders.',
-                link: '#',
-                partners: 'Jake Ferrell, Veteran Worship Leader (50%)'
+                description: 'Better Worship addresses a critical need in churches: helping worship leaders create biblically-grounded, theologically-sound worship experiences without spending hours on research and planning. The Setlist Builder™ tool makes it easy to identify songs that are relevant to the scripture of the message.',
+                link: 'https://betterworship.com',
+                partners: 'Jake Ferrell',
+                logo: 'images/better-worship_logo_white_rgb_2000w.png',
+                logoStyle: 'filter: brightness(0.1);'
             },
             'psalm-one': {
                 name: 'Psalm One',
                 description: 'Psalm One is a kingdom education company that provides premium biblical education through information products. The company addresses a critical market gap: serving educated Christians who are seeking intellectual depth in their Bible study but feel disconnected from traditional church teaching. Offerings include digital products, 1:1 mentoring, and an online community for intellectually curious Christians.',
-                link: '#',
-                partners: 'None (Operated directly by James Green)'
+                link: 'https://psalmone.com',
+                logo: 'images/Psalm One Logo_primary_full color dark.png',
+                logoStyle: ''
             },
             'door-renew': {
                 name: 'Door Renew',
-                description: 'Door Renew operates in the home services sector, specializing in the refinishing of doors and related surfaces. The company serves both residential and commercial clients, providing a cost-effective alternative to full door replacement while enhancing property value and curb appeal. Services include residential door restoration, commercial/property management, and B2B partnerships.',
-                link: '#',
-                partners: 'Jeremy Hamann, Master Woodworking Artisan (10%)'
+                description: 'Door Renew is a services company specializing in refinishing doors and related surfaces. The company serves both residential and commercial clients, providing a cost-effective alternative to full door replacement while enhancing property value and curb appeal.',
+                link: 'https://doorrenew.com',
+                partners: 'Jeremy Hamann',
+                logo: 'images/Door Renew Logo.png',
+                logoStyle: ''
             },
             'codeguide': {
                 name: 'CodeGuide',
-                description: 'CodeGuide helps developers who use AI coding tools like Claude AI and Bolt, addressing a key pain point: the need for detailed project documentation to ensure AI accuracy and efficiency. The platform automates the creation of essential documents—Product Requirements Documents (PRDs), tech stack overviews, and style guidelines—saving developers hours of manual work while enhancing project outcomes.',
+                description: 'CodeGuide helps developers who use AI coding tools like Claude AI and Bolt, addressing a key pain point: the need for detailed project documentation to ensure AI coding accuracy and efficiency. The platform automates the creation of essential documents—Product Requirements Documents (PRDs), tech stack blueprints, and style guidelines—saving developers hours of manual work while enhancing project outcomes.',
+                link: 'https://codeguide.dev',
+                partners: 'CJ Z',
+                logo: 'images/codeguide.png',
+                logoStyle: ''
+            },
+            'mosaic-property': {
+                name: 'Mosaic Property Group',
+                description: 'Mosaic Property Group holds real estate like commercial properties and short-term rentals. ',
                 link: '#',
-                partners: 'CJ Ahmad, Builder (90%)'
+                logo: 'images/Mosaic Logo_1 full color dark.png',
+                logoStyle: ''
             }
         };
 
@@ -770,24 +964,54 @@
         const modal = document.getElementById('company-modal');
         const modalTitle = document.getElementById('modal-title');
         const modalBody = document.getElementById('modal-body');
-        const modalLink = document.getElementById('modal-link');
+        const modalLinkButton = document.getElementById('modal-link-button');
         const modalClose = document.querySelector('.modal-close');
+        const modalLogo = document.getElementById('modal-logo');
+        let currentCompanyLink = '';
 
         // Open modal when clicking portfolio items
-        document.querySelectorAll('.portfolio-item').forEach(item => {
+        document.querySelectorAll('.brand-item').forEach(item => {
             item.addEventListener('click', () => {
                 const companyKey = item.getAttribute('data-company');
                 const company = companies[companyKey];
                 
+                // Set the company logo
+                modalLogo.innerHTML = `<img src="${company.logo}" alt="${company.name} Logo" ${company.logoStyle ? `style="${company.logoStyle}"` : ''}>`;
+                
+                // Set title and description
                 modalTitle.textContent = company.name;
+                
+                // Check if partners exists before adding it to the HTML
+                let partnersHtml = '';
+                if (company.partners) {
+                    partnersHtml = `<p><strong>Partners:</strong> ${company.partners}</p>`;
+                }
+                
                 modalBody.innerHTML = `
-                    <p><strong>Partners:</strong> ${company.partners}</p>
+                    ${partnersHtml}
                     <p>${company.description}</p>
                 `;
-                modalLink.href = company.link;
                 
+                // Store the company link for the button
+                currentCompanyLink = company.link;
+                
+                // Set the button visibility
+                if (company.link && company.link !== '#') {
+                    modalLinkButton.style.display = 'inline-flex';
+                } else {
+                    modalLinkButton.style.display = 'none';
+                }
+                
+                // Show modal with animation
                 modal.style.display = 'flex';
             });
+        });
+
+        // Button click handler
+        modalLinkButton.addEventListener('click', () => {
+            if (currentCompanyLink && currentCompanyLink !== '#') {
+                window.open(currentCompanyLink, '_blank');
+            }
         });
 
         // Close modal
