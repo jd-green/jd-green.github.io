@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consent Form - Dominion Equity Holdings</title>
+    <!-- Google Fonts - Sora (Regular, Medium, Bold) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            line-height: 1.6;
+            color: #170D33; /* Cool Black */
+            background-color: #ECF2F5; /* Cool Gray */
+        }
+
+        /* Color Variables - from Brand Guidelines */
+        :root {
+            --royal-purple: #42296B;
+            --light-purple: #B0A3CC;
+            --bright-teal: #75C9CC;
+            --dark-teal: #004A59;
+            --cool-gray: #ECF2F5;
+            --cool-black: #170D33;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 500; /* Sora Medium */
+            margin-bottom: 1rem;
+        }
+
+        h4, h5, h6 {
+            font-weight: 700; /* Sora Bold */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-weight: 400; /* Sora Regular */
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--royal-purple);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--dark-teal);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header - Modern Responsive Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            height: 80px;
+        }
+
+        .logo {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            font-weight: 500;
+            color: var(--cool-black);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--royal-purple);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--royal-purple);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--cool-black);
+            position: absolute;
+            left: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle span:nth-child(1) {
+            top: 12px;
+        }
+
+        .mobile-menu-toggle span:nth-child(2) {
+            top: 19px;
+        }
+
+        .mobile-menu-toggle span:nth-child(3) {
+            top: 26px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 19px;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 19px;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background-color: white;
+            z-index: 1000;
+            padding: 5rem 2rem 2rem;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-menu a {
+            font-weight: 500;
+            color: var(--cool-black);
+            font-size: 1.2rem;
+            display: block;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--cool-gray);
+        }
+
+        .mobile-nav-menu a:hover {
+            color: var(--royal-purple);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Consent Form Section */
+        .consent-section {
+            padding: 10rem 0 5rem;
+            background-color: white;
+        }
+
+        .consent-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .consent-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .consent-header h1 {
+            color: var(--royal-purple);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .consent-header h1::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--bright-teal);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .consent-form {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Sora', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus {
+            border-color: var(--royal-purple);
+            outline: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 0.3rem;
+            margin-right: 0.8rem;
+            transform: scale(1.2);
+            accent-color: var(--royal-purple);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--royal-purple);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-teal);
+            transform: translateY(-2px);
+        }
+
+        /* Feedback Message */
+        .feedback-message {
+            display: none;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .feedback-message.success {
+            background-color: rgba(117, 201, 204, 0.2);
+            color: var(--dark-teal);
+        }
+
+        .feedback-message.error {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--cool-black);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .footer-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .mobile-nav,
+            .mobile-menu-overlay {
+                display: block;
+            }
+            
+            .consent-container {
+                padding: 1.5rem;
+            }
+            
+            .consent-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo-link">
+                <img src="images/Dominion Equity logo_full color_dark.png" alt="Dominion Equity Holdings Logo" class="logo">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#vision">Vision</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html#vision">Vision</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="mobile-menu-overlay"></div>
+    </header>
+
+    <!-- Consent Form Section -->
+    <section class="consent-section">
+        <div class="container consent-container">
+            <div class="consent-header">
+                <h1>Communication Consent</h1>
+            </div>
+            <div class="consent-content">
+                <p>To provide you with the best experience, we request your consent to communicate with you via SMS text messages and email.</p>
+                
+                <p>By providing your consent below, you agree to receive:</p>
+                <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+                    <li>Communications regarding our relationship via SMS </li>
+                    <li>Communications regarding our relationship via email</li>
+                </ul>
+                
+                <p>You can withdraw your consent at any time by contacting us. Standard message and data rates may apply for SMS messages.</p>
+                
+                <form id="consentForm" class="consent-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consentCheckbox" name="consent" required>
+                        <label for="consentCheckbox">I consent to receive SMS text messages and emails from Dominion Equity Holdings. I understand that I can withdraw my consent at any time.</label>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <button type="submit" class="btn btn-primary">Submit Consent</button>
+                    </div>
+                    
+                    <div id="feedbackMessage" class="feedback-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Dominion Equity Holdings. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-menu a');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenuToggle.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            mobileMenuOverlay.style.display = mobileNav.classList.contains('active') ? 'block' : 'none';
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenuToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            mobileMenuOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuToggle.classList.remove('active');
+                mobileNav.classList.remove('active');
+                mobileMenuOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Form submission handler
+        const consentForm = document.getElementById('consentForm');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+
+        consentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real implementation, you would send the form data to your server here
+            // For demo purposes, we'll just show a success message
+            
+            feedbackMessage.textContent = 'Thank you! Your consent has been successfully submitted.';
+            feedbackMessage.classList.add('success');
+            feedbackMessage.style.display = 'block';
+            
+            // Clear the form
+            consentForm.reset();
+            
+            // You could also redirect the user after a delay:
+            // setTimeout(() => {
+            //     window.location.href = 'index.html';
+            // }, 3000);
+        });
+    </script>
+</body>
+</html> 
